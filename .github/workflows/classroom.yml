@@ -1,0 +1,90 @@
+name: Autograding Tests
+'on':
+- workflow_dispatch
+- repository_dispatch
+permissions:
+  checks: write
+  actions: read
+  contents: read
+jobs:
+  run-autograding-tests:
+    runs-on: ubuntu-latest
+    if: github.actor != 'github-classroom[bot]'
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+    - name: lab7a
+      id: lab7a
+      uses: classroom-resources/autograding-command-grader@v1
+      with:
+        test-name: lab7a
+        setup-command: ''
+        command: python3 ./CheckLab7.py -f -v lab7a
+        timeout: 10
+        max-score: 1
+    - name: lab7b
+      id: lab7b
+      uses: classroom-resources/autograding-command-grader@v1
+      with:
+        test-name: lab7b
+        setup-command: ''
+        command: python3 ./CheckLab7.py -f -v lab7b
+        timeout: 10
+        max-score: 1
+    - name: lab7c
+      id: lab7c
+      uses: classroom-resources/autograding-command-grader@v1
+      with:
+        test-name: lab7c
+        setup-command: ''
+        command: python3 ./CheckLab7.py -f -v lab7c
+        timeout: 10
+        max-score: 1
+    - name: lab7d
+      id: lab7d
+      uses: classroom-resources/autograding-command-grader@v1
+      with:
+        test-name: lab7d
+        setup-command: ''
+        command: python3 ./CheckLab7.py -f -v lab7d
+        timeout: 10
+        max-score: 1
+    - name: lab7e
+      id: lab7e
+      uses: classroom-resources/autograding-command-grader@v1
+      with:
+        test-name: lab7e
+        setup-command: ''
+        command: python3 ./CheckLab7.py -f -v lab7e
+        timeout: 10
+        max-score: 1
+    - name: lab7f
+      id: lab7f
+      uses: classroom-resources/autograding-command-grader@v1
+      with:
+        test-name: lab7f
+        setup-command: ''
+        command: python3 ./CheckLab7.py -f -v lab7f
+        timeout: 10
+        max-score: 1
+    - name: lab7g
+      id: lab7g
+      uses: classroom-resources/autograding-command-grader@v1
+      with:
+        test-name: lab7g
+        setup-command: ''
+        command: python3 ./CheckLab7.py -f -v lab7i
+        timeout: 10
+        max-score: 1
+    - name: Autograding Reporter
+      uses: classroom-resources/autograding-grading-reporter@v1
+      env:
+        LAB7A_RESULTS: "${{steps.lab7a.outputs.result}}"
+        LAB7B_RESULTS: "${{steps.lab7b.outputs.result}}"
+        LAB7C_RESULTS: "${{steps.lab7c.outputs.result}}"
+        LAB7D_RESULTS: "${{steps.lab7d.outputs.result}}"
+        LAB7E_RESULTS: "${{steps.lab7e.outputs.result}}"
+        LAB7F_RESULTS: "${{steps.lab7f.outputs.result}}"
+        LAB7G_RESULTS: "${{steps.lab7g.outputs.result}}"
+      with:
+        runners: lab7a,lab7b,lab7c,lab7d,lab7e,lab7f,lab7g
